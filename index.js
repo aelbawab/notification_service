@@ -12,7 +12,7 @@ app.use(express.json());
 
 
 app.post('/', (req, res) => {
-    console.log('Received request:', req.body);
+    // console.log('Received request:', req.body);
     sendNotification(req);
 
     res.send('Request received!');
@@ -40,7 +40,7 @@ function getAccessToken() {
                 return;
             }
             // console.log({ tokens: tokens.access_token })
-            console.log(tokens)
+            // console.log(tokens)
             resolve(tokens);
         });
     });
@@ -52,14 +52,14 @@ let access_token = null;
 const sendNotification = async (req) => {
 
     let data = JSON.stringify(req.body)
-    console.log(expiry_date, access_token)
+    // console.log(expiry_date, access_token)
     try {
         if (!access_token || expiry_date < Date.now()) {
             const googleResponse = await getAccessToken();
             access_token = googleResponse.access_token;
             expiry_date = googleResponse.expiry_date - (300 * 1000);
         }
-        console.log(expiry_date, access_token)
+        // console.log(expiry_date, access_token)
 
         var config = {
             method: 'post',
