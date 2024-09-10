@@ -13,9 +13,9 @@ app.use(express.json());
 
 app.post('/', (req, res) => {
     // console.log('Received request:', req.body);
+    res.send('Request received!');
     sendNotification(req);
 
-    res.send('Request received!');
 });
 
 app.listen(port, () => {
