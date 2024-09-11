@@ -78,7 +78,7 @@ const sendNotification = async (req) => {
                   console.log(JSON.stringify(response.data));
               })
               .catch(function (error) {
-                  console.log("error from axios",error.toJSON());
+                  console.log("error from axios",error.toJSON()||"something wrong");
               });
         });
 
