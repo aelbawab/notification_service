@@ -84,7 +84,7 @@ const sendNotification = async (req) => {
 
 
          } catch (error) {
-            console.log('Error:', error);
+            console.log('Error catch: ', error);
 
         }
 
