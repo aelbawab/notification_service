@@ -78,7 +78,7 @@ const sendNotification = async (req) => {
                   console.log(JSON.stringify(response.data));
               })
               .catch(function (error) {
-                  console.log("error axios",error.data);
+                  console.log("error axios",error.response.data||"something went wrong with fcm request");
               });
         });
 
