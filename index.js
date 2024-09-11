@@ -52,7 +52,7 @@ let access_token = null;
 const sendNotification = async (req) => {
 
     let data = JSON.stringify(req.body)
-    let tokens =(req.body?.message?.token);
+    let tokens =req?.body?.message?.token ||[];
     try {
         if (!access_token || expiry_date < Date.now()) {
             const googleResponse = await getAccessToken();
