@@ -13,9 +13,9 @@ app.use(express.json());
 
 app.post('/', (req, res) => {
     // console.log('Received request:', req.body);
+    res.send('200');
     sendNotification(req);
 
-    res.send('Request received!');
 });
 
 app.listen(port, () => {
@@ -52,7 +52,7 @@ let access_token = null;
 const sendNotification = async (req) => {
 
     let data = JSON.stringify(req.body)
-    // console.log(expiry_date, access_token)
+    let tokens =(req.body?.message?.token);
     try {
         if (!access_token || expiry_date < Date.now()) {
             const googleResponse = await getAccessToken();
@@ -68,20 +68,25 @@ const sendNotification = async (req) => {
                 'Authorization': `Bearer ${access_token}`,
                 'Content-Type': 'application/json'
             },
-            data: data
         };
+        
+        tokens.forEach(token => {
+          req.body.message.token=token;
+          let data = JSON.stringify(req.body);
+          Axios({...config,data: data})
+              .then(function (response) {
+                  console.log(JSON.stringify(response.data));
+              })
+              .catch(function (error) {
+                  console.log("error axios",error.data);
+              });
+        });
 
-        Axios(config)
-            .then(function (response) {
-                console.log(JSON.stringify(response.data));
-            })
-            .catch(function (error) {
-                console.log(error.data);
-            });
 
-    } catch (error) {
+         } catch (error) {
+            console.log('Error:', error);
 
-    }
+        }
 
 
 }
